@@ -24,7 +24,17 @@ const ExerciseCard = ({exercise , index}) => {
         <p className="capitalize">{exercise.muscles.join(' & ')}</p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid=cols4 sm:place-items-center gap-2">
+      <div className='flex flex-col bg-slate-950 rounded gap-2 '>
+                {exercise.description.split('___').map((val) => {
+                    return (
+                        <div key={val} className='text-sm'>
+                            {val}
+                        </div>
+                    )
+                })}
+    </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 sm:place-items-center gap-2">
         {[
             'reps','rest','tempo'
         ].map(info =>
@@ -36,7 +46,7 @@ const ExerciseCard = ({exercise , index}) => {
                 </div>
             )
         })}
-        <button onClick={handleSetIncrement} className='flex flex-col p-2 rounded border-[1.5px] duration-200 border-solid border-blue-900 hover:border-blue-600 w-full duration-200'>
+        <button onClick={handleSetIncrement} className='flex flex-col p-2 rounded border-[1.5px] border-solid border-blue-900 hover:border-blue-600 w-full duration-200'>
                     <h3 className='text-slate-400 text-sm capitalize'>Sets completed</h3>
                     <p className='font-medium'>{setsCompleted} / 5</p>
                 </button>
