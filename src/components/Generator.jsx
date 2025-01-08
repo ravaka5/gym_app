@@ -2,11 +2,11 @@ import SectionWrapper from "./SectionWrapper";
 import PropTypes from "prop-types"
 import { SCHEMES, WORKOUTS } from "../utils/swoldier";
 import { useState } from "react";
-
+import Button from "./Button";
 function Header(props){
     const {index,title,description} = props
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-4">
             <div className="flex items-center justify-center gap-2">
                 <p className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-400">{index}</p>
                 <h4 className="text-xl sm:text-2xl md:text-3xl">{title}</h4>
@@ -18,7 +18,7 @@ function Header(props){
 
 export default function Generator(props) {
 
-    let {poison , setPoison , muscles , setMuscles , goal , setGoal} = props 
+    let {poison , setPoison , muscles , setMuscles , goal , setGoal , updateWorkout} = props 
 
     const [showModal,setShowModal] = useState(false)
     
@@ -52,7 +52,7 @@ export default function Generator(props) {
         console.log(muscles)
     }
   return (
-    <SectionWrapper header="Generate your workout" title={[
+    <SectionWrapper id={'generate'} header="Generate your workout" title={[
         'It\'s','Huge','O\'clock'
     ]}>
         <Header index="01" title="Pick your poison" description={"Select the workout you want to start"}/>
@@ -72,7 +72,7 @@ export default function Generator(props) {
         <Header index="02" title="Lock on targets" description={"Select the muscles judged for annihilation"}/>
         <div className="bg-slate-950 border p-3 border-solid border-blue-400 rounded-lg flex flex-col">
             <button onClick={() => setShowModal(!showModal)} className="relative flex items-center justify-center">
-                <p>Select muscle groups</p>
+                <p>{ muscles.length === 0 ? "Select muscle groups" : muscles.join(" / ")}</p>
                 <i className="fa-solid fa-caret-down absolute top-1/2 -translate-y-1/2 right-3"></i>
             </button>
             {
@@ -99,7 +99,7 @@ export default function Generator(props) {
         </div>
 
         <Header index="03" title="Become a Juggernaut" description={"Select your ultimate objective"}/>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {Object.keys(SCHEMES).map((scheme,schemeIndex) => {
                 return (
                     <button
@@ -111,12 +111,16 @@ export default function Generator(props) {
                 )
             })}
         </div>
+        <div className="flex justify-center mb-8">
+            <Button text={"Formulate"} click={() => updateWorkout() }/>
+        </div>
+
     </SectionWrapper>
   )
 }
 
 Header.propTypes = {
-    index: PropTypes.number,
+    index: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string ,
 }
@@ -127,5 +131,6 @@ Generator.propTypes = {
     muscles: PropTypes.array,
     setMuscles:PropTypes.func,
     goal:PropTypes.string,
-    setGoal:PropTypes.func
+    setGoal:PropTypes.func,
+    updateWorkout:PropTypes.func
 }

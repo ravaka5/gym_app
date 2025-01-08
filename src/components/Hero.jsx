@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 export default function Hero() {
 return (
     <div className="min-h-screen flex flex-col gap-10 
@@ -13,9 +15,8 @@ return (
         and accept all risks of becoming the local 
         <span className="text-blue-400 font-medium">mass monstrosity</span>, 
         afflicted with severe body dismorphia, unable to pass through doors </p>
-        <button className="px-8 py-4 rounded-md border-2 border-blue-400 bg-slate-950 border-solid blueShadow duration-200">
-            <p>Accept & Begin</p>
-        </button>
+        <Button text={"Accept & Begin"} click={()=>{window.location.href = '#generate'}}/>
+        
     </div>
 )
 }
